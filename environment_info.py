@@ -5,17 +5,50 @@
 # conda activate bays
 
 # download stan for course in bays environment
+# pip install -e git+https://github.com/stan-dev/cmdstanpy@develop#egg=cmdstanp
 # conda install -c conda-forge cmdstan
 # git clone https://github.com/stan-dev/cmdstan.git --recursive for updating to the newest version from git
 
 #pip install -q cmdstanpy==1.3.0 downloading so it can talk with python
+
+
+
+
 
 from pathlib import Path
 import shutil
 import urllib.request
 
 import cmdstanpy
+print(cmdstanpy.__version__)
+print(cmdstanpy.cmdstan_path())
+
+
 from cmdstanpy import CmdStanModel
+
+print("CmdStan:", cmdstanpy.cmdstan_path())
+
+
+stan_file = Path("/Users/hannahmcnulty/.cmdstan/cmdstan-2.39.0")
+
+model = CmdStanModel(stan_file=str(stan_file))
+
+
+# stan_dir = Path("/Users/hannahmcnulty/Documents/github/Bayesian Stats/cmdstan/stan")
+# print(list(stan_dir.glob("*.stan")))
+## this returns [] so there is no stan file yet
+
+# project = Path("/Users/hannahmcnulty/Documents/github/Bayesian Stats")
+# print(list(project.rglob("*.stan")))
+## check for a stan file in all of it, so far i only have the example one
+
+stan_file = Path(
+    "/Users/hannahmcnulty/Documents/github/Bayesian Stats/"
+    "src/cmdstanpy/test/data/bernoulli.stan"
+)
+
+model = CmdStanModel(stan_file=str(stan_file))
+
 
 
 
@@ -53,21 +86,3 @@ from cmdstanpy import CmdStanModel
 #  rho ~ beta(1.5, 1.5);
 #  K ~ binomial(N, rho);
 #}
-
-
-
-
-import cmdstanpy
-cmdstanpy.install_cmdstan()
-
-
-import cmdstanpy
-
-print(cmdstanpy.__version__)
-
-
-cmdstanpy.install_cmdstan()
-
-
-from cmdstanpy import cmdstan_path
-print(cmdstan_path())
